@@ -1,0 +1,18 @@
+# Dependencias
+node_modules/
+
+# Código compilado
+dist/
+
+# Variables de entorno (NUNCA subir credenciales reales)
+.env
+.env.local
+
+# Base de datos local de pruebas
+local.db
+local.db-*
+
+# Sistema operativo / editor
+.DS_Store
+Thumbs.db
+npm-debug.log*

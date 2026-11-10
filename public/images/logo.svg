@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="SneakShop">
+  <defs>
+    <radialGradient id="brillo-logo" cx="0.5" cy="0.35" r="0.8">
+      <stop offset="0" stop-color="#1d3a6e"/>
+      <stop offset="1" stop-color="#0e1730"/>
+    </radialGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#brillo-logo)" stroke="#38bdf8" stroke-width="2"/>
+  <text x="32" y="43" font-size="30" text-anchor="middle">👟</text>
+</svg>

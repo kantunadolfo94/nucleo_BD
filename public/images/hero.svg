@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 420" role="img" aria-label="Tenis destacados de SneakShop">
+  <defs>
+    <radialGradient id="brillo-hero" cx="0.5" cy="0.4" r="0.75">
+      <stop offset="0" stop-color="#1d3a6e"/>
+      <stop offset="1" stop-color="#0a0f1e"/>
+    </radialGradient>
+    <radialGradient id="halo-hero" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#38bdf8" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="560" height="420" rx="28" fill="url(#brillo-hero)" stroke="#38bdf8" stroke-opacity="0.35" stroke-width="2"/>
+
+  <circle cx="280" cy="205" r="165" fill="url(#halo-hero)"/>
+  <circle cx="478" cy="66" r="70" fill="#38bdf8" opacity="0.10"/>
+  <circle cx="70" cy="372" r="90" fill="#1d4ed8" opacity="0.18"/>
+
+  <text x="280" y="262" font-size="180" text-anchor="middle">👟</text>
+
+  <g>
+    <rect x="46" y="64" rx="14" width="170" height="46" fill="#0e1730" stroke="#38bdf8" stroke-opacity="0.5"/>
+    <text x="131" y="95" text-anchor="middle" font-size="19" fill="#7dd3fc" font-family="Segoe UI, Arial, sans-serif" font-weight="bold">★ 4.9 valoración</text>
+  </g>
+  <g>
+    <rect x="348" y="298" rx="14" width="164" height="46" fill="#0e1730" stroke="#38bdf8" stroke-opacity="0.5"/>
+    <text x="430" y="329" text-anchor="middle" font-size="19" fill="#7dd3fc" font-family="Segoe UI, Arial, sans-serif" font-weight="bold">Envío gratis</text>
+  </g>
+</svg>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SneakShop | Encuentra tu estilo en cada paso</title>
+  <meta name="description" content="SneakShop: tienda urbana de calzado deportivo, casual y de vestir. Drops nuevos cada semana, 100% originales." />
+  <link rel="icon" type="image/svg+xml" href="/images/logo.svg" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+
+  <!-- ==================== ENCABEZADO ==================== -->
+  <header class="encabezado" id="encabezado">
+    <a class="logo" href="#inicio">
+      <img src="/images/logo.svg" alt="Logotipo SneakShop" class="logo__img" />
+      <span class="logo__texto">SNEAK<em>SHOP</em></span>
+    </a>
+
+    <nav class="menu" id="menu" aria-label="Menú principal">
+      <a href="#inicio">Inicio</a>
+      <a href="#productos">Productos</a>
+      <a href="#categorias">Categorías</a>
+      <a href="#nosotros">Nosotros</a>
+    </nav>
+
+    <form class="buscador" id="form-busqueda" role="search">
+      <input type="search" id="input-busqueda" placeholder="Buscar tenis…" autocomplete="off" />
+      <button type="submit" aria-label="Buscar">🔎</button>
+    </form>
+
+    <button class="menu-boton" id="menu-boton" aria-label="Abrir menú" aria-expanded="false">☰</button>
+  </header>
+
+  <!-- ==================== CINTA MARQUESINA ==================== -->
+  <div class="cinta" aria-hidden="true">
+    <div class="cinta__pista">
+      <span>ENVÍO GRATIS EN COMPRAS +$999</span><i>✦</i>
+      <span>100% ORIGINALES</span><i>✦</i>
+      <span>DROPS NUEVOS CADA SEMANA</span><i>✦</i>
+      <span>PAGOS SEGUROS</span><i>✦</i>
+      <span>ENVÍO GRATIS EN COMPRAS +$999</span><i>✦</i>
+      <span>100% ORIGINALES</span><i>✦</i>
+      <span>DROPS NUEVOS CADA SEMANA</span><i>✦</i>
+      <span>PAGOS SEGUROS</span><i>✦</i>
+    </div>
+  </div>
+
+  <main>
+    <!-- ==================== HERO / INICIO ==================== -->
+    <section class="hero" id="inicio">
+      <div class="hero__brillo hero__brillo--uno"></div>
+      <div class="hero__brillo hero__brillo--dos"></div>
+
+      <div class="hero__contenido">
+        <p class="hero__etiqueta"><span class="hero__fuego">🔥</span> DROP 07 · COLECCIÓN 2026</p>
+        <h1>Encuentra tu estilo <span class="hero__grad">en cada paso</span></h1>
+        <p class="hero__texto">
+          Deportivos, casuales, de vestir y botas. Drops limitados, precios reales
+          y el estilo urbano que tu rota necesita.
+        </p>
+        <div class="hero__acciones">
+          <a class="boton boton--neon" href="#productos">Ver el drop →</a>
+          <a class="boton boton--fantasma" href="#categorias">Explorar categorías</a>
+        </div>
+        <dl class="hero__stats">
+          <div><dt>+120</dt><dd>modelos</dd></div>
+          <div><dt>+500</dt><dd>clientes felices</dd></div>
+          <div><dt>04</dt><dd>categorías</dd></div>
+        </dl>
+      </div>
+
+      <div class="hero__imagen">
+        <img src="/images/hero.svg" alt="Ilustración de tenis SneakShop" />
+      </div>
+    </section>
+
+    <!-- ==================== PRODUCTOS DESTACADOS ==================== -->
+    <section class="seccion" id="productos">
+      <div class="seccion__cabecera">
+        <p class="seccion__kicker">CATÁLOGO EN VIVO</p>
+        <h2>Tenis destacados</h2>
+        <p class="seccion__sub" id="productos-subtitulo">Directo desde nuestra base de datos</p>
+        <button class="boton boton--chip oculto" id="boton-limpiar-filtro">✕ Quitar filtro</button>
+      </div>
+
+      <div class="aviso oculto" id="aviso-api" role="alert"></div>
+
+      <div class="cuadricula productos" id="grid-productos">
+        <p class="cargando">Cargando productos…</p>
+      </div>
+    </section>
+
+    <!-- ==================== CATEGORÍAS ==================== -->
+    <section class="seccion seccion--alterna" id="categorias">
+      <div class="seccion__cabecera">
+        <p class="seccion__kicker">ELIGE TU TERRENO</p>
+        <h2>Categorías</h2>
+        <p class="seccion__sub">Haz clic en una categoría para filtrar el catálogo</p>
+      </div>
+
+      <div class="cuadricula categorias">
+        <article class="tarjeta-categoria" data-categoria="Deportivos" tabindex="0" role="button">
+          <img src="/images/categoria-deportivos.svg" alt="Categoría deportivos" />
+          <h3>Deportivos</h3>
+          <p>Rendimiento y comodidad para entrenar.</p>
+          <span class="tarjeta-categoria__flecha">→</span>
+        </article>
+
+        <article class="tarjeta-categoria" data-categoria="Casuales" tabindex="0" role="button">
+          <img src="/images/categoria-casuales.svg" alt="Categoría casuales" />
+          <h3>Casuales</h3>
+          <p>Estilo relajado para tu día a día.</p>
+          <span class="tarjeta-categoria__flecha">→</span>
+        </article>
+
+        <article class="tarjeta-categoria" data-categoria="De vestir" tabindex="0" role="button">
+          <img src="/images/categoria-vestir.svg" alt="Categoría de vestir" />
+          <h3>De vestir</h3>
+          <p>Elegancia para tus eventos especiales.</p>
+          <span class="tarjeta-categoria__flecha">→</span>
+        </article>
+
+        <article class="tarjeta-categoria" data-categoria="Botas" tabindex="0" role="button">
+          <img src="/images/categoria-botas.svg" alt="Categoría botas" />
+          <h3>Botas</h3>
+          <p>Resistencia y actitud en cada terreno.</p>
+          <span class="tarjeta-categoria__flecha">→</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- ==================== NOSOTROS ==================== -->
+    <section class="seccion" id="nosotros">
+      <div class="seccion__cabecera">
+        <p class="seccion__kicker">MÁS QUE UNA TIENDA</p>
+        <h2>Nosotros</h2>
+        <p class="seccion__sub">Una tienda creada por estudiantes, para todos</p>
+      </div>
+
+      <div class="nosotros">
+        <div class="nosotros__historia">
+          <p>
+            <strong>SneakShop</strong> nació como un proyecto escolar con una obsesión:
+            que encontrar tus tenis favoritos sea tan fácil como dar un buen paso.
+            Somos una tienda en línea de calzado deportivo, casual y de vestir,
+            con catálogo en vivo y drops que se renuevan cada semana.
+          </p>
+          <ul class="nosotros__lista">
+            <li><span>👟</span> Modelos para cada estilo: entrenar, salir o asistir a un evento.</li>
+            <li><span>🗄️</span> Catálogo conectado directamente a nuestra base de datos Turso.</li>
+            <li><span>🤝</span> Construido en equipo con Git, GitHub y Pull Requests.</li>
+          </ul>
+        </div>
+
+        <div class="nosotros__valores">
+          <article class="tarjeta-valor">
+            <span>🛰️</span>
+            <h3>Drops semanales</h3>
+            <p>Nuevos modelos cada semana. Cuando se agotan, se agotan.</p>
+          </article>
+          <article class="tarjeta-valor">
+            <span>🛡️</span>
+            <h3>100% originales</h3>
+            <p>Cada par sale directo de proveedores verificados por el equipo.</p>
+          </article>
+          <article class="tarjeta-valor">
+            <span>⚡</span>
+            <h3>Comunidad sneaker</h3>
+            <p>Precios justos y experiencia de compra simple, sin vueltas.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== PIE DE PÁGINA ==================== -->
+  <footer class="pie">
+    <div class="pie__rejilla">
+      <div class="pie__columna">
+        <span class="logo__texto">SNEAK<em>SHOP</em></span>
+        <p class="pie__eslogan">Encuentra tu estilo en cada paso.</p>
+      </div>
+      <div class="pie__columna">
+        <h4>Menú</h4>
+        <a href="#inicio">Inicio</a>
+        <a href="#productos">Productos</a>
+        <a href="#categorias">Categorías</a>
+        <a href="#nosotros">Nosotros</a>
+      </div>
+      <div class="pie__columna">
+        <h4>Categorías</h4>
+        <span>Deportivos</span>
+        <span>Casuales</span>
+        <span>De vestir</span>
+        <span>Botas</span>
+      </div>
+      <div class="pie__columna">
+        <h4>Equipo</h4>
+        <span>Adolfo · Productos</span>
+        <span>Alexis · Categorías</span>
+        <span>Kevin · Inventario</span>
+        <span>José Luis · Proveedores</span>
+      </div>
+    </div>
+    <p class="pie__copy">© <span id="anio"></span> SneakShop — Proyecto de Ingeniería en Sistemas Computacionales.</p>
+  </footer>
+
+  <script src="/js/app.js" defer></script>
+</body>
+</html>
