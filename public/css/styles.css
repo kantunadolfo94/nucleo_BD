@@ -174,42 +174,6 @@ a {
   cursor: pointer;
 }
 
-/* ------------------------- Cinta marquesina ------------------------- */
-.cinta {
-  overflow: hidden;
-  background: linear-gradient(90deg, rgba(56, 189, 248, 0.14), rgba(56, 189, 248, 0.05));
-  border-top: 1px solid var(--borde);
-  border-bottom: 1px solid var(--borde);
-}
-
-.cinta__pista {
-  display: flex;
-  gap: 26px;
-  align-items: center;
-  width: max-content;
-  padding: 8px 0;
-  white-space: nowrap;
-  animation: deslizar 22s linear infinite;
-}
-
-.cinta__pista span {
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 3px;
-  color: var(--neon-suave);
-}
-
-.cinta__pista i {
-  font-style: normal;
-  color: var(--neon);
-  font-size: 0.7rem;
-}
-
-@keyframes deslizar {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
 /* ------------------------- Hero ------------------------- */
 .hero {
   position: relative;
@@ -730,18 +694,6 @@ a {
   max-width: 1200px;
 }
 
-/* ------------------------- Animación de aparición ------------------------- */
-.revelar {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.revelar--visible {
-  opacity: 1;
-  transform: none;
-}
-
 /* ------------------------- Responsive ------------------------- */
 @media (max-width: 900px) {
   .hero {
@@ -809,13 +761,7 @@ a {
 
 /* Respeta preferencia de reducir movimiento */
 @media (prefers-reduced-motion: reduce) {
-  .cinta__pista {
-    animation: none;
-  }
-
-  .revelar {
-    opacity: 1;
-    transform: none;
-    transition: none;
+  * {
+    transition: none !important;
   }
 }

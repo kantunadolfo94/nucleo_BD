@@ -3,7 +3,6 @@
    - Consume la API del módulo productos (/api/productos)
    - Renderiza el catálogo destacado con etiquetas de estado
    - Filtra por categoría y buscador en vivo
-   - Animaciones de aparición al hacer scroll
    ============================================================ */
 
 const API_PRODUCTOS = "/api/productos";
@@ -90,7 +89,7 @@ function productosVisibles() {
 function crearTarjetaProducto(producto) {
   const agotado = producto.existencia <= 0;
   return `
-    <article class="tarjeta-producto revelar">
+    <article class="tarjeta-producto">
       <div class="tarjeta-producto__imagen">
         <img src="${imagenDe(producto)}" alt="Imagen de ${producto.nombre}" loading="lazy" />
         ${etiquetaDeEstado(producto)}
@@ -110,22 +109,6 @@ function crearTarjetaProducto(producto) {
       </div>
     </article>
   `;
-}
-
-/** Activa la animación de aparición de las tarjetas visibles. */
-function observarRevelaciones() {
-  const observador = new IntersectionObserver(
-    (entradas) => {
-      entradas.forEach((entrada) => {
-        if (entrada.isIntersecting) {
-          entrada.target.classList.add("revelar--visible");
-          observador.unobserve(entrada.target);
-        }
-      });
-    },
-    { threshold: 0.15 },
-  );
-  grid.querySelectorAll(".revelar").forEach((elemento) => observador.observe(elemento));
 }
 
 /** Dibuja las tarjetas según el estado actual. */
@@ -151,7 +134,6 @@ function renderProductos() {
   }
 
   grid.innerHTML = visibles.map(crearTarjetaProducto).join("");
-  observarRevelaciones();
 }
 
 /** Descarga los productos desde la API del backend. */
