@@ -1,7 +1,8 @@
 /* ============================================================
    SneakShop — Lógica del frontend
    - Menú móvil (abrir/cerrar)
-   - Año del pie de página
+   - Selección visual de categoría (botones)
+   - Año del pie de página (si existe)
    ============================================================ */
 
 const menu = document.getElementById("menu");
@@ -25,9 +26,22 @@ function configurarMenu() {
   });
 }
 
+/* ------------------------- Botones de categoría ------------------------- */
+function configurarCategorias() {
+  document.querySelectorAll(".tarjeta-categoria").forEach((boton) => {
+    boton.addEventListener("click", () => {
+      document.querySelectorAll(".tarjeta-categoria").forEach((b) => b.classList.remove("activa"));
+      boton.classList.add("activa");
+    });
+  });
+}
+
 /* ------------------------- Inicio ------------------------- */
 function iniciar() {
+  const anio = document.getElementById("anio");
+  if (anio) anio.textContent = new Date().getFullYear();
   configurarMenu();
+  configurarCategorias();
 }
 
 iniciar();

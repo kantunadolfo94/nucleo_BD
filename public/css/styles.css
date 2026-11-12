@@ -302,7 +302,22 @@ a {
   border-radius: var(--radio);
   padding: 14px 14px 22px;
   text-align: center;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  width: 100%;
   transition: transform var(--transicion), box-shadow var(--transicion), border-color var(--transicion);
+}
+
+.tarjeta-categoria:hover,
+.tarjeta-categoria.activa {
+  transform: translateY(-7px);
+  border-color: rgba(56, 189, 248, 0.55);
+  box-shadow: 0 20px 40px rgba(56, 189, 248, 0.14);
+}
+
+.tarjeta-categoria.activa {
+  border-color: var(--neon);
 }
 
 .tarjeta-categoria img {
