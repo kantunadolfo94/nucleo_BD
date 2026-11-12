@@ -10,8 +10,7 @@ integrante), **Pull Requests** y una base de datos **Turso (libSQL)** compartida
 
 ## 📋 Descripción del proyecto
 
-- **Frontend**: página estática en `public/` (HTML5 + CSS3 + JavaScript puro) con
-  catálogo en vivo, buscador, categorías y sección "Nosotros".
+- **Frontend**: página estática en `public/` (HTML5 + CSS3 + JavaScript puro) con presentación y categorías.
 - **Backend**: API REST con **Node.js + TypeScript + Express** (`src/`).
 - **Base de datos**: **Turso/libSQL**, con una única tabla compartida `records`
   para todos los módulos (JSONB).
