@@ -43,7 +43,7 @@ export class ModuleRepository<T extends RecordContent = RecordContent> {
   private readonly autor: string;
 
   /**
-   * @param modulo Nombre del módulo (ej. "productos", "categorias", "inventario", "proveedores").
+   * @param modulo Nombre del módulo (ej. "deportivos", "casuales", "vestir", "botas").
    * @param autor  Nombre del integrante dueño del registro (ej. "Adolfo").
    */
   constructor(modulo: string, autor: string) {

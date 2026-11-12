@@ -1,5 +1,5 @@
 /**
- * DEMOSTRACIÓN del módulo `productos` — comando: `npm run demo:productos`.
+ * DEMOSTRACIÓN del módulo `deportivos` — comando: `npm run demo:deportivos`.
  *
  * Ejecuta TODAS las operaciones CRUD contra la base de datos y muestra
  * los resultados en consola. Es la prueba de humo del módulo de referencia.
@@ -13,7 +13,7 @@
  */
 import "dotenv/config";
 import { ensureSchema } from "../../db/init";
-import { ProductoService } from "./service";
+import { DeportivoService } from "./service";
 import type { ProductoInput } from "./types";
 
 /** Separa cada paso de la demo en la consola. */
@@ -37,8 +37,8 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
-  const service = new ProductoService();
-  console.log(`👟 SneakShop — demo del módulo 'productos' (autor: ${service.autor})`);
+  const service = new DeportivoService();
+  console.log(`👟 SneakShop — demo del módulo 'deportivos' (autor: ${service.autor})`);
 
   // 0. Garantizar que la tabla exista.
   paso("0. Preparar base de datos");

@@ -1,25 +1,25 @@
 /**
- * Rutas HTTP del módulo `productos`.
+ * Rutas HTTP del módulo `deportivos`.
  *
  * Endpoints:
- *   GET    /api/productos
- *   POST   /api/productos
- *   GET    /api/productos/buscar/:campo/:valor
- *   GET    /api/productos/:id
- *   PUT    /api/productos/:id
- *   DELETE /api/productos/:id
+ *   GET    /api/deportivos
+ *   POST   /api/deportivos
+ *   GET    /api/deportivos/buscar/:campo/:valor
+ *   GET    /api/deportivos/:id
+ *   PUT    /api/deportivos/:id
+ *   DELETE /api/deportivos/:id
  *
  * IMPORTANTE: la ruta de búsqueda se registra ANTES de `/(:id)` para que
  * Express no confunda "buscar" con un id.
  */
 import { Router, type NextFunction, type Request, type Response } from "express";
-import { ProductoService, ProductoValidationError, validarProducto } from "./service";
+import { DeportivoService, DeportivoValidationError, validarProducto } from "./service";
 import type { ProductoUpdate } from "./types";
 
-export const productosRouter = Router();
+export const deportivosRouter = Router();
 
 /** Instancia única del servicio para todas las peticiones. */
-const service = new ProductoService();
+const service = new DeportivoService();
 
 /** Envuelve handlers asíncronos para reenviar los errores a Express. */
 const asyncHandler =
@@ -29,9 +29,9 @@ const asyncHandler =
   };
 
 // ---------------------------------------------------------------------------
-// GET /api/productos  (lista todos; admite ?categoria=Deportivos como filtro)
+// GET /api/deportivos  (lista todos; admite ?categoria=Deportivos como filtro)
 // ---------------------------------------------------------------------------
-productosRouter.get(
+deportivosRouter.get(
   "/",
   asyncHandler(async (req, res) => {
     const categoria = typeof req.query.categoria === "string" ? req.query.categoria : "";
@@ -43,9 +43,9 @@ productosRouter.get(
 );
 
 // ---------------------------------------------------------------------------
-// POST /api/productos  (registra un producto)
+// POST /api/deportivos  (registra un producto)
 // ---------------------------------------------------------------------------
-productosRouter.post(
+deportivosRouter.post(
   "/",
   asyncHandler(async (req, res) => {
     const registro = await service.registrar(req.body ?? {});
@@ -54,9 +54,9 @@ productosRouter.post(
 );
 
 // ---------------------------------------------------------------------------
-// GET /api/productos/buscar/:campo/:valor  (filtra por una propiedad JSON)
+// GET /api/deportivos/buscar/:campo/:valor  (filtra por una propiedad JSON)
 // ---------------------------------------------------------------------------
-productosRouter.get(
+deportivosRouter.get(
   "/buscar/:campo/:valor",
   asyncHandler(async (req, res) => {
     const { campo, valor } = req.params;
@@ -71,9 +71,9 @@ productosRouter.get(
 );
 
 // ---------------------------------------------------------------------------
-// GET /api/productos/:id
+// GET /api/deportivos/:id
 // ---------------------------------------------------------------------------
-productosRouter.get(
+deportivosRouter.get(
   "/:id",
   asyncHandler(async (req, res) => {
     const registro = await service.obtenerPorId(req.params.id);
@@ -86,9 +86,9 @@ productosRouter.get(
 );
 
 // ---------------------------------------------------------------------------
-// PUT /api/productos/:id
+// PUT /api/deportivos/:id
 // ---------------------------------------------------------------------------
-productosRouter.put(
+deportivosRouter.put(
   "/:id",
   asyncHandler(async (req, res) => {
     const cambios: ProductoUpdate = req.body ?? {};
@@ -102,9 +102,9 @@ productosRouter.put(
 );
 
 // ---------------------------------------------------------------------------
-// DELETE /api/productos/:id
+// DELETE /api/deportivos/:id
 // ---------------------------------------------------------------------------
-productosRouter.delete(
+deportivosRouter.delete(
   "/:id",
   asyncHandler(async (req, res) => {
     const eliminado = await service.eliminar(req.params.id);
@@ -121,14 +121,14 @@ productosRouter.delete(
 //  - Errores de validación  -> HTTP 400 con lista de errores
 //  - Cualquier otro error   -> HTTP 500 (ej. sin conexión a Turso)
 // ---------------------------------------------------------------------------
-productosRouter.use((error: unknown, _req: Request, res: Response, _next: NextFunction): void => {
-  if (error instanceof ProductoValidationError) {
+deportivosRouter.use((error: unknown, _req: Request, res: Response, _next: NextFunction): void => {
+  if (error instanceof DeportivoValidationError) {
     res.status(400).json({ ok: false, errores: error.errores });
     return;
   }
-  console.error("[productos] Error no controlado:", error);
+  console.error("[deportivos] Error no controlado:", error);
   res.status(500).json({
     ok: false,
-    mensaje: error instanceof Error ? error.message : "Error interno del módulo de productos",
+    mensaje: error instanceof Error ? error.message : "Error interno del módulo de deportivos",
   });
 });

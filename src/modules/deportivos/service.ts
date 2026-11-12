@@ -1,8 +1,8 @@
 /**
- * Servicio del módulo `productos` — MÓDULO DE REFERENCIA.
+ * Servicio del módulo `deportivos` — MÓDULO DE REFERENCIA.
  *
  * Este módulo está completo a propósito: sirve de ejemplo para que
- * Alexis (categorias), Kevin (inventario) y José Luis (proveedores)
+ * Alexis (casuales), Kevin (botas) y José Luis (vestir)
  * repliquen el mismo patrón en sus módulos.
  *
  * Reglas del patrón:
@@ -20,15 +20,15 @@ import {
 } from "./types";
 
 /** Nombre del módulo: también es el valor de la columna `modulo` en `records`. */
-const MODULO = "productos";
+const MODULO = "deportivos";
 
 /** Error de validación: la capa de rutas lo traduce a HTTP 400. */
-export class ProductoValidationError extends Error {
+export class DeportivoValidationError extends Error {
   readonly errores: string[];
 
   constructor(errores: string[]) {
     super(errores.join(" "));
-    this.name = "ProductoValidationError";
+    this.name = "DeportivoValidationError";
     this.errores = errores;
   }
 }
@@ -78,13 +78,13 @@ export function validarProducto(datos: Partial<Producto>, parcial = false): stri
   return errores;
 }
 
-export class ProductoService {
+export class DeportivoService {
   private readonly repo: ModuleRepository<Producto>;
 
   /**
-   * @param autor Quién crea los registros. Por defecto toma AUTOR_PRODUCTOS del .env.
+   * @param autor Quién crea los registros. Por defecto toma AUTOR_DEPORTIVOS del .env.
    */
-  constructor(autor: string = process.env.AUTOR_PRODUCTOS?.trim() || "Adolfo") {
+  constructor(autor: string = process.env.AUTOR_DEPORTIVOS?.trim() || "Adolfo") {
     this.repo = new ModuleRepository<Producto>(MODULO, autor);
   }
 
@@ -97,7 +97,7 @@ export class ProductoService {
   async registrar(datos: ProductoInput): Promise<ShopRecord<Producto>> {
     const errores = validarProducto(datos);
     if (errores.length > 0) {
-      throw new ProductoValidationError(errores);
+      throw new DeportivoValidationError(errores);
     }
     return this.repo.create(datos);
   }
@@ -126,11 +126,11 @@ export class ProductoService {
   /** Actualiza un producto existente (mezcla con los campos enviados). */
   async actualizar(id: string, cambios: ProductoUpdate): Promise<ShopRecord<Producto> | null> {
     if (!cambios || Object.keys(cambios).length === 0) {
-      throw new ProductoValidationError(["El cuerpo de la petición está vacío: envía al menos un campo."]);
+      throw new DeportivoValidationError(["El cuerpo de la petición está vacío: envía al menos un campo."]);
     }
     const errores = validarProducto(cambios, true);
     if (errores.length > 0) {
-      throw new ProductoValidationError(errores);
+      throw new DeportivoValidationError(errores);
     }
     return this.repo.update(id, cambios);
   }

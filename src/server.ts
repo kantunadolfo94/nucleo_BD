@@ -2,14 +2,14 @@
  * Servidor de SneakShop — Express + TypeScript.
  *
  * - Sirve el frontend estático desde /public
- * - Monta la API del módulo productos en /api/productos
+ * - Monta la API del módulo deportivos en /api/deportivos
  * - Verifica la base de datos al arrancar (sin bloquear el arranque)
  */
 import "dotenv/config";
 import path from "node:path";
 import express, { type NextFunction, type Request, type Response } from "express";
 import { ensureSchema } from "./db/init";
-import { productosRouter } from "./modules/productos/routes";
+import { deportivosRouter } from "./modules/deportivos/routes";
 
 const app = express();
 const PUERTO = Number(process.env.PORT) > 0 ? Number(process.env.PORT) : 3000;
@@ -30,8 +30,8 @@ app.get("/api/health", (_req, res) => {
   res.json({ ok: true, servicio: "SneakShop API", hora: new Date().toISOString() });
 });
 
-// Módulo de referencia (Adolfo)
-app.use("/api/productos", productosRouter);
+// Módulo de referencia (Adolfo) — deportivos
+app.use("/api/deportivos", deportivosRouter);
 
 // 404 para rutas de API que no existan
 app.use("/api", (_req, res) => {
@@ -63,7 +63,7 @@ async function main(): Promise<void> {
   } catch (error) {
     console.warn("⚠️  No se pudo verificar la base de datos al arrancar:");
     console.warn(`   ${error instanceof Error ? error.message : String(error)}`);
-    console.warn("   La página se servirá, pero la API /api/productos fallará hasta que:");
+    console.warn("   La página se servirá, pero la API /api/deportivos fallará hasta que:");
     console.warn("     1. Configures TURSO_DATABASE_URL y TURSO_AUTH_TOKEN en .env");
     console.warn("     2. Ejecutes 'npm run db:init'");
   }

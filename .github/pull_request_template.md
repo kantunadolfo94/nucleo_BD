@@ -1,7 +1,7 @@
 # Pull Request — SneakShop
 
 ## 📦 Módulo
-<!-- productos / categorias / inventario / proveedores -->
+<!-- deportivos / casuales / vestir / botas -->
 
 ## 👤 Autor
 <!-- Tu nombre -->

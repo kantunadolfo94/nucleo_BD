@@ -44,15 +44,15 @@ SneakShop/
 │   ├── core/ModuleRepository.ts  # Repositorio genérico reutilizable
 │   ├── db/init.ts           # Crea la tabla 'records' y sus índices
 │   ├── modules/
-│   │   ├── productos/       # MÓDULO DE REFERENCIA (Adolfo) — completo
+│   │   ├── deportivos/      # MÓDULO DE REFERENCIA (Adolfo) — completo
 │   │   │   ├── types.ts
 │   │   │   ├── service.ts
 │   │   │   ├── routes.ts
 │   │   │   ├── demo.ts
 │   │   │   └── README.md
-│   │   ├── categorias/      # Alexis (ver README del módulo)
-│   │   ├── inventario/      # Kevin (ver README del módulo)
-│   │   └── proveedores/     # José Luis (ver README del módulo)
+│   │   ├── casuales/        # Alexis (ver README del módulo)
+│   │   ├── vestir/          # José Luis (ver README del módulo)
+│   │   └── botas/           # Kevin (ver README del módulo)
 │   └── server.ts            # Express: frontend + API
 ├── .github/pull_request_template.md
 ├── .env.example
@@ -203,10 +203,10 @@ await repo.findByField("categoria", "Deportivos");
 | Rama | Integrante | Módulo | Carpeta de trabajo |
 |------|-----------|--------|--------------------|
 | `main` | Adolfo (líder) | Integración | — |
-| `productos` | Adolfo | productos (referencia) | `src/modules/productos/` |
-| `categorias` | Alexis | categorias | `src/modules/categorias/` |
-| `inventario` | Kevin | inventario | `src/modules/inventario/` |
-| `proveedores` | José Luis | proveedores | `src/modules/proveedores/` |
+| `deportivos` | Adolfo | deportivos (referencia) | `src/modules/deportivos/` |
+| `casuales` | Alexis | casuales | `src/modules/casuales/` |
+| `vestir` | José Luis | vestir | `src/modules/vestir/` |
+| `botas` | Kevin | botas | `src/modules/botas/` |
 
 **Reglas de oro:**
 
@@ -253,7 +253,7 @@ git push -u origin categorias
 
 ## 👥 Equipo
 
-- **Adolfo** — Líder · módulo `productos`
-- **Alexis** — módulo `categorias`
-- **Kevin** — módulo `inventario`
-- **José Luis** — módulo `proveedores`
+- **Adolfo** — Líder · módulo `deportivos`
+- **Alexis** — módulo `casuales`
+- **Kevin** — módulo `botas`
+- **José Luis** — módulo `vestir`
