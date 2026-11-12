@@ -1,16 +1,10 @@
 /* ============================================================
    SneakShop — Lógica del frontend
-   - Menú móvil (abrir/cerrar)
-   - Selección de categoría → muestra el zapato de ejemplo (modal)
+   - Cada categoría tiene su URL: /Deportivos, /Casuales, /De%20vestir, /Botas
+   - Al abrir una URL de categoría se muestra el zapato de ejemplo (modal)
+   - Menú móvil
    ============================================================ */
 
-const menu = document.getElementById("menu");
-const menuBoton = document.getElementById("menu-boton");
-const modal = document.getElementById("modal-categoria");
-const modalCuerpo = document.getElementById("modal-cuerpo");
-const modalCerrar = document.getElementById("modal-cerrar");
-
-/** Mapeo de categoría → endpoint del módulo */
 const ENDPOINTS_CATEGORIA = {
   "Deportivos": "/api/deportivos",
   "Casuales": "/api/casuales",
@@ -18,13 +12,18 @@ const ENDPOINTS_CATEGORIA = {
   "Botas": "/api/botas",
 };
 
-/** Imagen por categoría */
 const IMAGENES_POR_CATEGORIA = {
   "Deportivos": "/images/categoria-deportivos.svg",
   "Casuales": "/images/categoria-casuales.svg",
   "De vestir": "/images/categoria-vestir.svg",
   "Botas": "/images/categoria-botas.svg",
 };
+
+const menu = document.getElementById("menu");
+const menuBoton = document.getElementById("menu-boton");
+const modal = document.getElementById("modal-categoria");
+const modalCuerpo = document.getElementById("modal-cuerpo");
+const modalCerrar = document.getElementById("modal-cerrar");
 
 /* ------------------------- Menú móvil ------------------------- */
 function configurarMenu() {
@@ -34,7 +33,6 @@ function configurarMenu() {
     menuBoton.setAttribute("aria-expanded", String(abierto));
     menuBoton.textContent = abierto ? "✕" : "☰";
   });
-
   menu.querySelectorAll("a").forEach((enlace) => {
     enlace.addEventListener("click", () => {
       menu.classList.remove("abierto");
@@ -53,6 +51,10 @@ function abrirModal() {
 function cerrarModal() {
   modal.classList.remove("abierto");
   modal.setAttribute("aria-hidden", "true");
+  // Volver a la página principal sin recargar
+  if (window.location.pathname !== "/") {
+    history.pushState({}, "", "/");
+  }
 }
 
 function configurarModal() {
@@ -66,7 +68,19 @@ function configurarModal() {
   });
 }
 
-/* ------------------------- Botones de categoría ------------------------- */
+/* ------------------------- Categoría activa ------------------------- */
+function categoriaDesdeURL() {
+  const path = decodeURIComponent(window.location.pathname).replace(/^\/+/, "");
+  return ["Deportivos", "Casuales", "De vestir", "Botas"].includes(path) ? path : null;
+}
+
+function marcarCategoriaActiva(categoria) {
+  document.querySelectorAll(".tarjeta-categoria").forEach((el) => {
+    el.classList.toggle("activa", el.dataset.categoria === categoria);
+  });
+}
+
+/* ------------------------- Zapato de ejemplo ------------------------- */
 function formatoPrecio(precio) {
   return Number(precio).toLocaleString("es-MX", { style: "currency", currency: "MXN" });
 }
@@ -88,7 +102,7 @@ async function mostrarZapatoDeCategoria(categoria) {
       modalCuerpo.innerHTML = `
         <img src="${IMAGENES_POR_CATEGORIA[categoria]}" alt="${categoria}" />
         <h3>${categoria}</h3>
-        <p class="descripcion">Aún no hay zapatos de ejemplo en esta categoría. Ejecuta la demo del módulo para cargar uno.</p>
+        <p class="descripcion">Aún no hay zapatos de ejemplo en esta categoría.</p>
       `;
       return;
     }
@@ -109,26 +123,33 @@ async function mostrarZapatoDeCategoria(categoria) {
     modalCuerpo.innerHTML = `
       <img src="${IMAGENES_POR_CATEGORIA[categoria]}" alt="${categoria}" />
       <h3>${categoria}</h3>
-      <p class="descripcion">No se pudo cargar el zapato de ejemplo. Verifica que el servidor esté corriendo.</p>
+      <p class="descripcion">No se pudo cargar el zapato de ejemplo.</p>
     `;
   }
 }
 
-function configurarCategorias() {
-  document.querySelectorAll(".tarjeta-categoria").forEach((boton) => {
-    boton.addEventListener("click", () => {
-      document.querySelectorAll(".tarjeta-categoria").forEach((b) => b.classList.remove("activa"));
-      boton.classList.add("activa");
-      mostrarZapatoDeCategoria(boton.dataset.categoria);
-    });
-  });
-}
-
 /* ------------------------- Inicio ------------------------- */
 function iniciar() {
+  const categoriaURL = categoriaDesdeURL();
+  marcarCategoriaActiva(categoriaURL);
+
+  if (categoriaURL) {
+    mostrarZapatoDeCategoria(categoriaURL);
+  }
+
   configurarMenu();
   configurarModal();
-  configurarCategorias();
+
+  // Navegación con el botón atrás/adelante del navegador
+  window.addEventListener("popstate", () => {
+    const cat = categoriaDesdeURL();
+    marcarCategoriaActiva(cat);
+    if (cat) {
+      mostrarZapatoDeCategoria(cat);
+    } else {
+      cerrarModal();
+    }
+  });
 }
 
 iniciar();

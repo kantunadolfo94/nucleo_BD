@@ -302,10 +302,10 @@ a {
   border-radius: var(--radio);
   padding: 14px 14px 22px;
   text-align: center;
-  font: inherit;
-  color: inherit;
+  color: var(--texto);
+  text-decoration: none;
+  display: block;
   cursor: pointer;
-  width: 100%;
   transition: transform var(--transicion), box-shadow var(--transicion), border-color var(--transicion);
 }
 

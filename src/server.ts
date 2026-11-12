@@ -39,6 +39,17 @@ app.use("/api/casuales", casualesRouter);
 app.use("/api/vestir", vestirRouter);
 app.use("/api/botas", botasRouter);
 
+// Página de categoría: /Deportivos, /Casuales, /De%20vestir, /Botas sirven el frontend
+const CATEGORIAS_URL = ["Deportivos", "Casuales", "De vestir", "Botas"];
+app.get("/:categoria", (req, res, next) => {
+  const cat = decodeURIComponent(req.params.categoria);
+  if (CATEGORIAS_URL.includes(cat)) {
+    res.sendFile(path.join(carpetaPublic, "index.html"));
+  } else {
+    next();
+  }
+});
+
 // 404 para rutas de API que no existan
 app.use("/api", (_req, res) => {
   res.status(404).json({ ok: false, mensaje: "Ruta de API no encontrada" });
