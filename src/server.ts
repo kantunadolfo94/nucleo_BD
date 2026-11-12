@@ -10,6 +10,9 @@ import path from "node:path";
 import express, { type NextFunction, type Request, type Response } from "express";
 import { ensureSchema } from "./db/init";
 import { deportivosRouter } from "./modules/deportivos/routes";
+import { casualesRouter } from "./modules/casuales/routes";
+import { vestirRouter } from "./modules/vestir/routes";
+import { botasRouter } from "./modules/botas/routes";
 
 const app = express();
 const PUERTO = Number(process.env.PORT) > 0 ? Number(process.env.PORT) : 3000;
@@ -30,8 +33,11 @@ app.get("/api/health", (_req, res) => {
   res.json({ ok: true, servicio: "SneakShop API", hora: new Date().toISOString() });
 });
 
-// Módulo de referencia (Adolfo) — deportivos
+// Módulos (Adolfo, Alexis, José Luis, Kevin)
 app.use("/api/deportivos", deportivosRouter);
+app.use("/api/casuales", casualesRouter);
+app.use("/api/vestir", vestirRouter);
+app.use("/api/botas", botasRouter);
 
 // 404 para rutas de API que no existan
 app.use("/api", (_req, res) => {
