@@ -1,19 +1,19 @@
 /**
  * Tipos del módulo `casuales`.
- *
- * Cada categoría se guarda como JSON dentro de la columna `content`
- * de la tabla compartida `records`. Estos tipos describen ese JSON.
+ * PLANTILLA: misma estructura que `deportivos` (módulo de referencia).
  */
 
-/** Contenido JSON que guarda cada categoría casual. */
-export type CategoriaCasual = {
+export const CATEGORIAS = ["Deportivos", "Casuales", "De vestir", "Botas"] as const;
+export type Categoria = (typeof CATEGORIAS)[number];
+
+export type Producto = {
   nombre: string;
   descripcion: string;
-  imagen: string;
+  categoria: Categoria;
+  precio: number;
+  talla: number;
+  existencia: number;
 };
 
-/** Datos necesarios para registrar una categoría (todos los campos). */
-export type CategoriaCasualInput = CategoriaCasual;
-
-/** Datos aceptados para actualizar (campos opcionales). */
-export type CategoriaCasualUpdate = Partial<CategoriaCasual>;
+export type ProductoInput = Producto;
+export type ProductoUpdate = Partial<Producto>;

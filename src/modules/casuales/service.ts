@@ -1,14 +1,14 @@
 /**
  * Servicio del módulo `casuales`.
- *
- * Sigue el mismo patrón que `deportivos` (módulo de referencia).
- * CRUD completo usando ModuleRepository.
+ * PLANTILLA: misma estructura que `deportivos` (módulo de referencia).
  */
 import { ModuleRepository, type ShopRecord } from "../../core/ModuleRepository";
 import {
-  type CategoriaCasual,
-  type CategoriaCasualInput,
-  type CategoriaCasualUpdate,
+  CATEGORIAS,
+  type Categoria,
+  type Producto,
+  type ProductoInput,
+  type ProductoUpdate,
 } from "./types";
 
 const MODULO = "casuales";
@@ -23,7 +23,7 @@ export class CasualValidationError extends Error {
   }
 }
 
-export function validarCasual(datos: Partial<CategoriaCasual>, parcial = false): string[] {
+export function validarProducto(datos: Partial<Producto>, parcial = false): string[] {
   const errores: string[] = [];
 
   if (!parcial || datos.nombre !== undefined) {
@@ -36,9 +36,24 @@ export function validarCasual(datos: Partial<CategoriaCasual>, parcial = false):
       errores.push("El campo 'descripcion' es obligatorio y debe tener al menos 5 caracteres.");
     }
   }
-  if (!parcial || datos.imagen !== undefined) {
-    if (typeof datos.imagen !== "string" || datos.imagen.trim().length === 0) {
-      errores.push("El campo 'imagen' es obligatorio.");
+  if (!parcial || datos.categoria !== undefined) {
+    if (!CATEGORIAS.includes(datos.categoria as Categoria)) {
+      errores.push(`El campo 'categoria' debe ser uno de: ${CATEGORIAS.join(", ")}.`);
+    }
+  }
+  if (!parcial || datos.precio !== undefined) {
+    if (typeof datos.precio !== "number" || !Number.isFinite(datos.precio) || datos.precio <= 0) {
+      errores.push("El campo 'precio' debe ser un número mayor a 0.");
+    }
+  }
+  if (!parcial || datos.talla !== undefined) {
+    if (typeof datos.talla !== "number" || datos.talla < 18 || datos.talla > 45) {
+      errores.push("El campo 'talla' debe ser un número entre 18 y 45 (MX).");
+    }
+  }
+  if (!parcial || datos.existencia !== undefined) {
+    if (typeof datos.existencia !== "number" || !Number.isInteger(datos.existencia) || datos.existencia < 0) {
+      errores.push("El campo 'existencia' debe ser un número entero mayor o igual a 0.");
     }
   }
 
@@ -46,41 +61,41 @@ export function validarCasual(datos: Partial<CategoriaCasual>, parcial = false):
 }
 
 export class CasualService {
-  private readonly repo: ModuleRepository<CategoriaCasual>;
+  private readonly repo: ModuleRepository<Producto>;
 
   constructor(autor: string = process.env.AUTOR_CASUALES?.trim() || "Alexis") {
-    this.repo = new ModuleRepository<CategoriaCasual>(MODULO, autor);
+    this.repo = new ModuleRepository<Producto>(MODULO, autor);
   }
 
   get autor(): string {
     return this.repo.nombreAutor;
   }
 
-  async registrar(datos: CategoriaCasualInput): Promise<ShopRecord<CategoriaCasual>> {
-    const errores = validarCasual(datos);
+  async registrar(datos: ProductoInput): Promise<ShopRecord<Producto>> {
+    const errores = validarProducto(datos);
     if (errores.length > 0) {
       throw new CasualValidationError(errores);
     }
     return this.repo.create(datos);
   }
 
-  async obtenerTodos(): Promise<ShopRecord<CategoriaCasual>[]> {
+  async obtenerTodos(): Promise<ShopRecord<Producto>[]> {
     return this.repo.findAll();
   }
 
-  async obtenerPorId(id: string): Promise<ShopRecord<CategoriaCasual> | null> {
+  async obtenerPorId(id: string): Promise<ShopRecord<Producto> | null> {
     return this.repo.findById(id);
   }
 
-  async filtrarPor(campo: string, valor: string | number | boolean): Promise<ShopRecord<CategoriaCasual>[]> {
+  async filtrarPor(campo: string, valor: string | number | boolean): Promise<ShopRecord<Producto>[]> {
     return this.repo.findByField(campo, valor);
   }
 
-  async actualizar(id: string, cambios: CategoriaCasualUpdate): Promise<ShopRecord<CategoriaCasual> | null> {
+  async actualizar(id: string, cambios: ProductoUpdate): Promise<ShopRecord<Producto> | null> {
     if (!cambios || Object.keys(cambios).length === 0) {
       throw new CasualValidationError(["El cuerpo de la petición está vacío: envía al menos un campo."]);
     }
-    const errores = validarCasual(cambios, true);
+    const errores = validarProducto(cambios, true);
     if (errores.length > 0) {
       throw new CasualValidationError(errores);
     }

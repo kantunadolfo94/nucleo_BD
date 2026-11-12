@@ -1,12 +1,14 @@
 /**
  * Servicio del módulo `botas`.
- * Sigue el mismo patrón que `deportivos` (módulo de referencia).
+ * PLANTILLA: misma estructura que `deportivos` (módulo de referencia).
  */
 import { ModuleRepository, type ShopRecord } from "../../core/ModuleRepository";
 import {
-  type ProductoBota,
-  type ProductoBotaInput,
-  type ProductoBotaUpdate,
+  CATEGORIAS,
+  type Categoria,
+  type Producto,
+  type ProductoInput,
+  type ProductoUpdate,
 } from "./types";
 
 const MODULO = "botas";
@@ -21,7 +23,7 @@ export class BotaValidationError extends Error {
   }
 }
 
-export function validarBota(datos: Partial<ProductoBota>, parcial = false): string[] {
+export function validarProducto(datos: Partial<Producto>, parcial = false): string[] {
   const errores: string[] = [];
 
   if (!parcial || datos.nombre !== undefined) {
@@ -34,6 +36,11 @@ export function validarBota(datos: Partial<ProductoBota>, parcial = false): stri
       errores.push("El campo 'descripcion' es obligatorio y debe tener al menos 5 caracteres.");
     }
   }
+  if (!parcial || datos.categoria !== undefined) {
+    if (!CATEGORIAS.includes(datos.categoria as Categoria)) {
+      errores.push(`El campo 'categoria' debe ser uno de: ${CATEGORIAS.join(", ")}.`);
+    }
+  }
   if (!parcial || datos.precio !== undefined) {
     if (typeof datos.precio !== "number" || !Number.isFinite(datos.precio) || datos.precio <= 0) {
       errores.push("El campo 'precio' debe ser un número mayor a 0.");
@@ -41,7 +48,7 @@ export function validarBota(datos: Partial<ProductoBota>, parcial = false): stri
   }
   if (!parcial || datos.talla !== undefined) {
     if (typeof datos.talla !== "number" || datos.talla < 18 || datos.talla > 45) {
-      errores.push("El campo 'talla' debe ser un número entre 18 y 45.");
+      errores.push("El campo 'talla' debe ser un número entre 18 y 45 (MX).");
     }
   }
   if (!parcial || datos.existencia !== undefined) {
@@ -54,41 +61,41 @@ export function validarBota(datos: Partial<ProductoBota>, parcial = false): stri
 }
 
 export class BotaService {
-  private readonly repo: ModuleRepository<ProductoBota>;
+  private readonly repo: ModuleRepository<Producto>;
 
   constructor(autor: string = process.env.AUTOR_BOTAS?.trim() || "Kevin") {
-    this.repo = new ModuleRepository<ProductoBota>(MODULO, autor);
+    this.repo = new ModuleRepository<Producto>(MODULO, autor);
   }
 
   get autor(): string {
     return this.repo.nombreAutor;
   }
 
-  async registrar(datos: ProductoBotaInput): Promise<ShopRecord<ProductoBota>> {
-    const errores = validarBota(datos);
+  async registrar(datos: ProductoInput): Promise<ShopRecord<Producto>> {
+    const errores = validarProducto(datos);
     if (errores.length > 0) {
       throw new BotaValidationError(errores);
     }
     return this.repo.create(datos);
   }
 
-  async obtenerTodos(): Promise<ShopRecord<ProductoBota>[]> {
+  async obtenerTodos(): Promise<ShopRecord<Producto>[]> {
     return this.repo.findAll();
   }
 
-  async obtenerPorId(id: string): Promise<ShopRecord<ProductoBota> | null> {
+  async obtenerPorId(id: string): Promise<ShopRecord<Producto> | null> {
     return this.repo.findById(id);
   }
 
-  async filtrarPor(campo: string, valor: string | number | boolean): Promise<ShopRecord<ProductoBota>[]> {
+  async filtrarPor(campo: string, valor: string | number | boolean): Promise<ShopRecord<Producto>[]> {
     return this.repo.findByField(campo, valor);
   }
 
-  async actualizar(id: string, cambios: ProductoBotaUpdate): Promise<ShopRecord<ProductoBota> | null> {
+  async actualizar(id: string, cambios: ProductoUpdate): Promise<ShopRecord<Producto> | null> {
     if (!cambios || Object.keys(cambios).length === 0) {
       throw new BotaValidationError(["El cuerpo de la petición está vacío: envía al menos un campo."]);
     }
-    const errores = validarBota(cambios, true);
+    const errores = validarProducto(cambios, true);
     if (errores.length > 0) {
       throw new BotaValidationError(errores);
     }

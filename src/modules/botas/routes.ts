@@ -3,7 +3,7 @@
  */
 import { Router, type NextFunction, type Request, type Response } from "express";
 import { BotaService, BotaValidationError } from "./service";
-import type { ProductoBotaUpdate } from "./types";
+import type { ProductoUpdate } from "./types";
 
 export const botasRouter = Router();
 
@@ -16,8 +16,8 @@ const asyncHandler =
   };
 
 botasRouter.get("/", asyncHandler(async (req, res) => {
-  const nombre = typeof req.query.nombre === "string" ? req.query.nombre : "";
-  const registros = nombre ? await service.filtrarPor("nombre", nombre) : await service.obtenerTodos();
+  const categoria = typeof req.query.categoria === "string" ? req.query.categoria : "";
+  const registros = categoria ? await service.filtrarPor("categoria", categoria) : await service.obtenerTodos();
   res.json({ ok: true, cantidad: registros.length, data: registros });
 }));
 
@@ -35,21 +35,21 @@ botasRouter.get("/buscar/:campo/:valor", asyncHandler(async (req, res) => {
 
 botasRouter.get("/:id", asyncHandler(async (req, res) => {
   const registro = await service.obtenerPorId(req.params.id);
-  if (!registro) { res.status(404).json({ ok: false, mensaje: "Registro no encontrado" }); return; }
+  if (!registro) { res.status(404).json({ ok: false, mensaje: "Producto no encontrado" }); return; }
   res.json({ ok: true, data: registro });
 }));
 
 botasRouter.put("/:id", asyncHandler(async (req, res) => {
-  const cambios: ProductoBotaUpdate = req.body ?? {};
+  const cambios: ProductoUpdate = req.body ?? {};
   const registro = await service.actualizar(req.params.id, cambios);
-  if (!registro) { res.status(404).json({ ok: false, mensaje: "Registro no encontrado" }); return; }
-  res.json({ ok: true, mensaje: "Registro actualizado", data: registro });
+  if (!registro) { res.status(404).json({ ok: false, mensaje: "Producto no encontrado" }); return; }
+  res.json({ ok: true, mensaje: "Producto actualizado", data: registro });
 }));
 
 botasRouter.delete("/:id", asyncHandler(async (req, res) => {
   const eliminado = await service.eliminar(req.params.id);
-  if (!eliminado) { res.status(404).json({ ok: false, mensaje: "Registro no encontrado" }); return; }
-  res.json({ ok: true, mensaje: "Registro eliminado" });
+  if (!eliminado) { res.status(404).json({ ok: false, mensaje: "Producto no encontrado" }); return; }
+  res.json({ ok: true, mensaje: "Producto eliminado" });
 }));
 
 botasRouter.use((error: unknown, _req: Request, res: Response, _next: NextFunction): void => {

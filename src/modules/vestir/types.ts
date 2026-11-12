@@ -1,15 +1,19 @@
 /**
  * Tipos del módulo `vestir`.
+ * PLANTILLA: misma estructura que `deportivos` (módulo de referencia).
  */
 
-export type ProductoVestir = {
+export const CATEGORIAS = ["Deportivos", "Casuales", "De vestir", "Botas"] as const;
+export type Categoria = (typeof CATEGORIAS)[number];
+
+export type Producto = {
   nombre: string;
   descripcion: string;
-  categoria: string;
+  categoria: Categoria;
   precio: number;
   talla: number;
   existencia: number;
 };
 
-export type ProductoVestirInput = ProductoVestir;
-export type ProductoVestirUpdate = Partial<ProductoVestir>;
+export type ProductoInput = Producto;
+export type ProductoUpdate = Partial<Producto>;

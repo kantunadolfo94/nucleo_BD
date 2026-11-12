@@ -3,7 +3,7 @@
  */
 import { Router, type NextFunction, type Request, type Response } from "express";
 import { VestirService, VestirValidationError } from "./service";
-import type { ProductoVestirUpdate } from "./types";
+import type { ProductoUpdate } from "./types";
 
 export const vestirRouter = Router();
 
@@ -16,8 +16,8 @@ const asyncHandler =
   };
 
 vestirRouter.get("/", asyncHandler(async (req, res) => {
-  const nombre = typeof req.query.nombre === "string" ? req.query.nombre : "";
-  const registros = nombre ? await service.filtrarPor("nombre", nombre) : await service.obtenerTodos();
+  const categoria = typeof req.query.categoria === "string" ? req.query.categoria : "";
+  const registros = categoria ? await service.filtrarPor("categoria", categoria) : await service.obtenerTodos();
   res.json({ ok: true, cantidad: registros.length, data: registros });
 }));
 
@@ -35,21 +35,21 @@ vestirRouter.get("/buscar/:campo/:valor", asyncHandler(async (req, res) => {
 
 vestirRouter.get("/:id", asyncHandler(async (req, res) => {
   const registro = await service.obtenerPorId(req.params.id);
-  if (!registro) { res.status(404).json({ ok: false, mensaje: "Registro no encontrado" }); return; }
+  if (!registro) { res.status(404).json({ ok: false, mensaje: "Producto no encontrado" }); return; }
   res.json({ ok: true, data: registro });
 }));
 
 vestirRouter.put("/:id", asyncHandler(async (req, res) => {
-  const cambios: ProductoVestirUpdate = req.body ?? {};
+  const cambios: ProductoUpdate = req.body ?? {};
   const registro = await service.actualizar(req.params.id, cambios);
-  if (!registro) { res.status(404).json({ ok: false, mensaje: "Registro no encontrado" }); return; }
-  res.json({ ok: true, mensaje: "Registro actualizado", data: registro });
+  if (!registro) { res.status(404).json({ ok: false, mensaje: "Producto no encontrado" }); return; }
+  res.json({ ok: true, mensaje: "Producto actualizado", data: registro });
 }));
 
 vestirRouter.delete("/:id", asyncHandler(async (req, res) => {
   const eliminado = await service.eliminar(req.params.id);
-  if (!eliminado) { res.status(404).json({ ok: false, mensaje: "Registro no encontrado" }); return; }
-  res.json({ ok: true, mensaje: "Registro eliminado" });
+  if (!eliminado) { res.status(404).json({ ok: false, mensaje: "Producto no encontrado" }); return; }
+  res.json({ ok: true, mensaje: "Producto eliminado" });
 }));
 
 vestirRouter.use((error: unknown, _req: Request, res: Response, _next: NextFunction): void => {
