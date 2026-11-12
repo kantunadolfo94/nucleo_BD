@@ -9,7 +9,10 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "db:init": "tsx src/db/init.ts",
-    "demo:deportivos": "tsx src/modules/deportivos/demo.ts"
+    "demo:deportivos": "tsx src/modules/deportivos/demo.ts",
+    "demo:casuales": "tsx src/modules/casuales/demo.ts",
+    "demo:vestir": "tsx src/modules/vestir/demo.ts",
+    "demo:botas": "tsx src/modules/botas/demo.ts"
   },
   "keywords": [
     "sneakshop",
