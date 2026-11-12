@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SneakShop | Encuentra tu estilo en cada paso</title>
-  <meta name="description" content="SneakShop: tienda de calzado deportivo, casual y de vestir. Presentación y categorías." />
+  <title>SneakShop | Vista Principal — Módulos de Calzado</title>
+  <meta name="description" content="SneakShop: tienda web modular de calzado. Accede a las vistas de Deportivos, Casuales, De vestir y Botas." />
   <link rel="icon" type="image/svg+xml" href="/images/logo.svg" />
   <link rel="stylesheet" href="/css/styles.css" />
 </head>
@@ -12,14 +12,17 @@
 
   <!-- ==================== ENCABEZADO ==================== -->
   <header class="encabezado" id="encabezado">
-    <a class="logo" href="#inicio">
+    <a class="logo" href="/">
       <img src="/images/logo.svg" alt="Logotipo SneakShop" class="logo__img" />
       <span class="logo__texto">SNEAK<em>SHOP</em></span>
     </a>
 
     <nav class="menu" id="menu" aria-label="Menú principal">
-      <a href="#inicio">Inicio</a>
-      <a href="#categorias">Categorías</a>
+      <a href="/" class="activo">Inicio</a>
+      <a href="/deportivos">Deportivos</a>
+      <a href="/casuales">Casuales</a>
+      <a href="/vestir">De vestir</a>
+      <a href="/botas">Botas</a>
     </nav>
 
     <button class="menu-boton" id="menu-boton" aria-label="Abrir menú" aria-expanded="false">☰</button>
@@ -35,11 +38,13 @@
         <p class="hero__etiqueta"><span class="hero__fuego">👟</span> COLECCIÓN 2026</p>
         <h1>Encuentra tu estilo <span class="hero__grad">en cada paso</span></h1>
         <p class="hero__texto">
-          Deportivos, casuales, de vestir y botas. El calzado que tu estilo necesita,
-          en un solo lugar.
+          Plataforma web modular de calzado. Cada categoría cuenta con su propia
+          vista independiente para consultar, buscar y dar de alta productos en
+          la base de datos compartida de Turso libSQL.
         </p>
         <div class="hero__acciones">
-          <a class="boton boton--neon" href="#categorias">Ver categorías →</a>
+          <a class="boton boton--neon" href="#modulos">Explorar módulos ↓</a>
+          <a class="boton boton--secundario" href="/api/health" target="_blank" rel="noopener">Estado de la API</a>
         </div>
       </div>
 
@@ -48,51 +53,102 @@
       </div>
     </section>
 
-    <!-- ==================== CATEGORÍAS ==================== -->
-    <section class="seccion seccion--alterna" id="categorias">
+    <!-- ==================== VÍNCULOS A CADA MÓDULO ==================== -->
+    <section class="seccion seccion--alterna" id="modulos">
       <div class="seccion__cabecera">
-        <p class="seccion__kicker">ELIGE TU TERRENO</p>
-        <h2>Categorías</h2>
-        <p class="seccion__sub">Cuatro estilos, un solo lugar — haz clic en una</p>
+        <p class="seccion__kicker">VISTAS DISPONIBLES</p>
+        <h2>Módulos por Categoría</h2>
+        <p class="seccion__sub">Haz clic en cualquier categoría para entrar a su vista completa y administrar su calzado</p>
       </div>
 
       <div class="cuadricula categorias">
-        <a class="tarjeta-categoria" href="/Deportivos" data-categoria="Deportivos">
-          <img src="/images/categoria-deportivos.svg" alt="Categoría deportivos" />
+        <!-- Módulo Deportivos -->
+        <a class="tarjeta-categoria" href="/deportivos" title="Ir a la vista del módulo Deportivos">
+          <img src="/images/categoria-deportivos.svg" alt="Categoría Deportivos" />
           <h3>Deportivos</h3>
-          <p>Rendimiento y comodidad para entrenar.</p>
+          <p>Rendimiento, ligereza y amortiguación para tus entrenamientos y carreras.</p>
+          <span class="tarjeta-categoria__meta">Módulo Adolfo · /api/deportivos</span>
+          <span class="chip chip--categoria" data-contador-modulo="deportivos">Consultando…</span>
+          <span class="tarjeta-categoria__enlace">Entrar a la vista Deportivos →</span>
         </a>
 
-        <a class="tarjeta-categoria" href="/Casuales" data-categoria="Casuales">
-          <img src="/images/categoria-casuales.svg" alt="Categoría casuales" />
+        <!-- Módulo Casuales -->
+        <a class="tarjeta-categoria" href="/casuales" title="Ir a la vista del módulo Casuales">
+          <img src="/images/categoria-casuales.svg" alt="Categoría Casuales" />
           <h3>Casuales</h3>
-          <p>Estilo relajado para tu día a día.</p>
+          <p>Estilo urbano y comodidad versátil pensada para tu ritmo de vida diario.</p>
+          <span class="tarjeta-categoria__meta">Módulo Alexis · /api/casuales</span>
+          <span class="chip chip--categoria" data-contador-modulo="casuales">Consultando…</span>
+          <span class="tarjeta-categoria__enlace">Entrar a la vista Casuales →</span>
         </a>
 
-        <a class="tarjeta-categoria" href="/De%20vestir" data-categoria="De vestir">
-          <img src="/images/categoria-vestir.svg" alt="Categoría de vestir" />
+        <!-- Módulo De vestir -->
+        <a class="tarjeta-categoria" href="/vestir" title="Ir a la vista del módulo De vestir">
+          <img src="/images/categoria-vestir.svg" alt="Categoría De vestir" />
           <h3>De vestir</h3>
-          <p>Elegancia para tus eventos especiales.</p>
+          <p>Elegancia clásica, finos acabados en piel y distinción en ocasiones especiales.</p>
+          <span class="tarjeta-categoria__meta">Módulo José Luis · /api/vestir</span>
+          <span class="chip chip--categoria" data-contador-modulo="vestir">Consultando…</span>
+          <span class="tarjeta-categoria__enlace">Entrar a la vista De vestir →</span>
         </a>
 
-        <a class="tarjeta-categoria" href="/Botas" data-categoria="Botas">
-          <img src="/images/categoria-botas.svg" alt="Categoría botas" />
+        <!-- Módulo Botas -->
+        <a class="tarjeta-categoria" href="/botas" title="Ir a la vista del módulo Botas">
+          <img src="/images/categoria-botas.svg" alt="Categoría Botas" />
           <h3>Botas</h3>
-          <p>Resistencia y actitud en cada terreno.</p>
+          <p>Resistencia, soporte reforzado y tracción todo terreno con personalidad.</p>
+          <span class="tarjeta-categoria__meta">Módulo Kevin · /api/botas</span>
+          <span class="chip chip--categoria" data-contador-modulo="botas">Consultando…</span>
+          <span class="tarjeta-categoria__enlace">Entrar a la vista Botas →</span>
         </a>
+      </div>
+    </section>
+
+    <!-- ==================== ARQUITECTURA Y CARACTERÍSTICAS ==================== -->
+    <section class="seccion">
+      <div class="seccion__cabecera">
+        <p class="seccion__kicker">NÚCLEO DEL PROYECTO</p>
+        <h2>Arquitectura Integrada</h2>
+        <p class="seccion__sub">Tecnología compartida con separación limpia de responsabilidades</p>
+      </div>
+
+      <div class="cuadricula">
+        <div class="tarjeta-categoria" style="text-align: left; align-items: flex-start; cursor: default;">
+          <h3 style="color: var(--neon); margin-bottom: 8px;">🗂️ Vistas Dedicadas</h3>
+          <p>Cada módulo cuenta con su archivo HTML y vista completa, permitiendo navegar directamente a <code>/deportivos</code>, <code>/casuales</code>, <code>/vestir</code> y <code>/botas</code>.</p>
+        </div>
+
+        <div class="tarjeta-categoria" style="text-align: left; align-items: flex-start; cursor: default;">
+          <h3 style="color: var(--neon); margin-bottom: 8px;">⚡ API REST Modular</h3>
+          <p>Endpoints independientes con soporte para operaciones CRUD completas: listar, buscar por campo, consultar por ID, registrar y eliminar calzado.</p>
+        </div>
+
+        <div class="tarjeta-categoria" style="text-align: left; align-items: flex-start; cursor: default;">
+          <h3 style="color: var(--neon); margin-bottom: 8px;">☁️ Turso libSQL</h3>
+          <p>Persistencia remota en una única tabla compartida <code>records</code> con almacenamiento eficiente en JSONB, índices optimizados y autoría por integrante.</p>
+        </div>
       </div>
     </section>
   </main>
 
-  <!-- ==================== MODAL DE CATEGORÍA ==================== -->
-  <div class="modal" id="modal-categoria" aria-hidden="true">
-    <div class="modal__contenido">
-      <button class="modal__cerrar" id="modal-cerrar" aria-label="Cerrar">✕</button>
-      <div class="modal__cuerpo" id="modal-cuerpo">
-        <p class="cargando">Cargando…</p>
+  <!-- ==================== PIE DE PÁGINA ==================== -->
+  <footer class="pie">
+    <div class="pie__contenido">
+      <div class="logo">
+        <img src="/images/logo.svg" alt="Logotipo SneakShop" class="logo__img" />
+        <span class="logo__texto">SNEAK<em>SHOP</em></span>
       </div>
+
+      <nav class="pie__enlaces" aria-label="Enlaces del pie">
+        <a href="/">Inicio</a>
+        <a href="/deportivos">Deportivos</a>
+        <a href="/casuales">Casuales</a>
+        <a href="/vestir">De vestir</a>
+        <a href="/botas">Botas</a>
+      </nav>
     </div>
-  </div>
+    <p class="pie__copy">SneakShop 2026 — Proyecto Modular con Base de Datos libSQL / Turso.</p>
+  </footer>
 
   <script src="/js/app.js" defer></script>
 </body>

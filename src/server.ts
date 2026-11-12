@@ -39,15 +39,27 @@ app.use("/api/casuales", casualesRouter);
 app.use("/api/vestir", vestirRouter);
 app.use("/api/botas", botasRouter);
 
-// Página de categoría: /Deportivos, /Casuales, /De%20vestir, /Botas sirven el frontend
-const CATEGORIAS_URL = ["Deportivos", "Casuales", "De vestir", "Botas"];
+// ---------------------------------------------------------------------------
+// Vistas independientes por categoría
+// Cada módulo cuenta con su propia vista HTML: deportivos, casuales, vestir, botas
+// ---------------------------------------------------------------------------
+const VISTAS_POR_CATEGORIA: Record<string, string> = {
+  deportivos: "deportivos.html",
+  casuales: "casuales.html",
+  vestir: "vestir.html",
+  "de vestir": "vestir.html",
+  "de-vestir": "vestir.html",
+  botas: "botas.html",
+};
+
 app.get("/:categoria", (req, res, next) => {
-  const cat = decodeURIComponent(req.params.categoria);
-  if (CATEGORIAS_URL.includes(cat)) {
-    res.sendFile(path.join(carpetaPublic, "index.html"));
-  } else {
-    next();
+  const catParam = decodeURIComponent(req.params.categoria).trim().toLowerCase();
+  const archivoVista = VISTAS_POR_CATEGORIA[catParam];
+  if (archivoVista) {
+    res.sendFile(path.join(carpetaPublic, archivoVista));
+    return;
   }
+  next();
 });
 
 // 404 para rutas de API que no existan

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deportivos | SneakShop — Módulo de Calzado Deportivo</title>
+  <meta name="description" content="Vista del módulo de calzado deportivo en SneakShop. Consulta el catálogo y gestiona productos." />
+  <link rel="icon" type="image/svg+xml" href="/images/logo.svg" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+
+  <!-- ==================== ENCABEZADO ==================== -->
+  <header class="encabezado" id="encabezado">
+    <a class="logo" href="/">
+      <img src="/images/logo.svg" alt="Logotipo SneakShop" class="logo__img" />
+      <span class="logo__texto">SNEAK<em>SHOP</em></span>
+    </a>
+
+    <nav class="menu" id="menu" aria-label="Menú principal">
+      <a href="/">Inicio</a>
+      <a href="/deportivos" class="activo">Deportivos</a>
+      <a href="/casuales">Casuales</a>
+      <a href="/vestir">De vestir</a>
+      <a href="/botas">Botas</a>
+    </nav>
+
+    <button class="menu-boton" id="menu-boton" aria-label="Abrir menú" aria-expanded="false">☰</button>
+  </header>
+
+  <main id="vista-modulo" data-modulo="deportivos" data-categoria="Deportivos" data-autor="Adolfo" data-icono="👟" data-imagen="/images/categoria-deportivos.svg">
+    <!-- ==================== BANNER DEL MÓDULO ==================== -->
+    <section class="banner-modulo">
+      <div class="banner-modulo__contenedor">
+        <div class="banner-modulo__info">
+          <nav class="migas-pan" aria-label="Ruta de navegación">
+            <a href="/">Inicio</a>
+            <span class="migas-pan__sep">/</span>
+            <span>Módulos</span>
+            <span class="migas-pan__sep">/</span>
+            <span>Deportivos</span>
+          </nav>
+
+          <span class="banner-modulo__badge">MÓDULO DEPORTIVOS · LÍDER: ADOLFO · API: /api/deportivos</span>
+          <h1>👟 Calzado Deportivo</h1>
+          <p class="banner-modulo__desc">
+            Diseñados para máximo rendimiento, ligereza y confort superior en cada entrenamiento y carrera.
+            Esta vista consulta directamente la base de datos de Turso mediante la API REST del módulo.
+          </p>
+
+          <div class="banner-modulo__acciones">
+            <a href="/" class="boton boton--secundario">← Volver al inicio</a>
+            <button type="button" class="boton boton--neon" id="btn-nuevo-producto">+ Registrar nuevo deportivo</button>
+          </div>
+        </div>
+
+        <div class="banner-modulo__icono">
+          <img src="/images/categoria-deportivos.svg" alt="Categoría Deportivos" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CATÁLOGO DE PRODUCTOS ==================== -->
+    <section class="seccion">
+      <div class="barra-catalogo">
+        <div class="barra-catalogo__busqueda">
+          <span>🔍</span>
+          <input type="search" id="buscar-producto" placeholder="Buscar deportivo por nombre o descripción…" aria-label="Buscar calzado" />
+        </div>
+        <div class="barra-catalogo__info">
+          <span>Total en este módulo:</span>
+          <span id="contador-productos" class="barra-catalogo__contador">Cargando…</span>
+        </div>
+      </div>
+
+      <div class="cuadricula catalogo" id="catalogo-productos">
+        <!-- Renderizado dinámicamente desde /api/deportivos -->
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== MODAL PARA REGISTRAR CALZADO ==================== -->
+  <div class="modal" id="modal-nuevo-producto" aria-hidden="true" role="dialog" aria-labelledby="modal-titulo">
+    <div class="modal__contenido">
+      <button class="modal__cerrar" id="modal-cerrar" aria-label="Cerrar modal">✕</button>
+
+      <h3 class="modal__titulo" id="modal-titulo">👟 Registrar Calzado Deportivo</h3>
+
+      <div class="formulario-alerta" id="modal-alerta" role="alert"></div>
+
+      <form id="form-nuevo-producto" autocomplete="off">
+        <input type="hidden" name="categoria" value="Deportivos" />
+
+        <div class="formulario-grupo">
+          <label for="nombre">Nombre del modelo *</label>
+          <input type="text" id="nombre" name="nombre" class="formulario-control" placeholder="Ej. Neon Runner X2" required minlength="3" />
+        </div>
+
+        <div class="formulario-grupo">
+          <label for="descripcion">Descripción *</label>
+          <textarea id="descripcion" name="descripcion" class="formulario-control" placeholder="Ej. Tenis de running ultraligeros con suela de espuma reactiva." required minlength="5"></textarea>
+        </div>
+
+        <div class="formulario-fila">
+          <div class="formulario-grupo">
+            <label for="precio">Precio (MXN) *</label>
+            <input type="number" id="precio" name="precio" class="formulario-control" placeholder="Ej. 1899" min="1" step="0.5" required />
+          </div>
+
+          <div class="formulario-grupo">
+            <label for="talla">Talla (MX) *</label>
+            <input type="number" id="talla" name="talla" class="formulario-control" placeholder="Ej. 27" min="18" max="45" step="0.5" required />
+          </div>
+        </div>
+
+        <div class="formulario-grupo">
+          <label for="existencia">Existencia en stock (pares) *</label>
+          <input type="number" id="existencia" name="existencia" class="formulario-control" placeholder="Ej. 10" min="0" step="1" required />
+        </div>
+
+        <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+          <button type="button" class="boton boton--secundario" onclick="document.getElementById('modal-cerrar').click()">Cancelar</button>
+          <button type="submit" class="boton boton--neon">Guardar calzado</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== PIE DE PÁGINA ==================== -->
+  <footer class="pie">
+    <div class="pie__contenido">
+      <div class="logo">
+        <img src="/images/logo.svg" alt="Logotipo SneakShop" class="logo__img" />
+        <span class="logo__texto">SNEAK<em>SHOP</em></span>
+      </div>
+
+      <nav class="pie__enlaces" aria-label="Enlaces del pie">
+        <a href="/">Inicio</a>
+        <a href="/deportivos">Deportivos</a>
+        <a href="/casuales">Casuales</a>
+        <a href="/vestir">De vestir</a>
+        <a href="/botas">Botas</a>
+      </nav>
+    </div>
+    <p class="pie__copy">SneakShop 2026 — Vista de Módulo Deportivo (Adolfo).</p>
+  </footer>
+
+  <script src="/js/modulo.js" defer></script>
+</body>
+</html>
